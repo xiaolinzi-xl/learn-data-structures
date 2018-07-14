@@ -71,28 +71,28 @@ public class LinkedList<E> {
     }
 
     // 获得链表第一个元素
-    public E getFirst(){
+    public E getFirst() {
         return get(0);
     }
 
     // 获得链表最后一个元素
-    public E getLast(){
-        return get(size-1);
+    public E getLast() {
+        return get(size - 1);
     }
 
     // 修改链表的第index(0-based)个位置的元素为e
-    public void set(int index,E e){
+    public void set(int index, E e) {
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("Set failed.Illegal index");
 
         Node cur = dummyHead.next;
-        for (int i=0;i<index;i++)
+        for (int i = 0; i < index; i++)
             cur = cur.next;
         cur.e = e;
     }
 
     // 查找链表中是否包含元素e
-    public boolean contains(E e){
+    public boolean contains(E e) {
         Node cur = dummyHead.next;
         while (cur != null) {
             if (cur.e.equals(e))
@@ -101,12 +101,37 @@ public class LinkedList<E> {
         return false;
     }
 
+    // 删除链表中索引为(0-based)位置的元素,并返回
+    public E remove(int index) {
+        if (index < 0 || index >= size)
+            throw new IllegalArgumentException("Remove failed.Illegal index.");
+        Node prev = dummyHead;
+        for (int i = 0; i < index; i++)
+            prev = prev.next;
+
+        Node retNode = prev.next;
+        prev.next = retNode.next;
+        retNode.next = null;
+
+        return retNode.e;
+    }
+
+    // 删除链表中第一个元素，并返回
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    // 删除链表中最后一个元素，并返回
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
 
         Node cur = dummyHead.next;
-        while (cur != null){
+        while (cur != null) {
             res.append(cur.e + "->");
             cur = cur.next;
         }
