@@ -7,7 +7,7 @@ package _01_Linked_List_Problems_in_Leetcode;
  * Created by xiaolinzi on 2018/7/14.
  */
 public class Solution {
-    public ListNode removeElements(ListNode head, int val) {
+    public static ListNode removeElements(ListNode head, int val) {
         ListNode virNode = new ListNode(0);
         virNode.next = head;
         ListNode cur = virNode;
@@ -21,5 +21,15 @@ public class Solution {
         }
 
         return virNode.next;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {1, 2, 6, 3, 4, 5, 6};
+        ListNode head = new ListNode(nums);
+        System.out.println(head);
+
+        ListNode res = removeElements(head, 6);
+        System.out.println(res);
+
     }
 }
