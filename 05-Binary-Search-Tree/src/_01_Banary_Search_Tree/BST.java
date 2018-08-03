@@ -74,12 +74,12 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 前序遍历
-    public void preOrder(){
+    public void preOrder() {
         preOrder(root);
     }
 
     // 前序遍历以node为根的二分搜索树，递归算法
-    private void preOrder(Node node){
+    private void preOrder(Node node) {
         if (node == null)
             return;
 
@@ -89,12 +89,12 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 二分搜索树的非递归前序遍历
-    public void preOrederNR(){
+    public void preOrederNR() {
         if (root == null)
             return;
         Stack<Node> stack = new Stack<>();
         stack.push(root);
-        while (!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             Node cur = stack.pop();
             System.out.println(cur.e);
 
@@ -107,12 +107,12 @@ public class BST<E extends Comparable<E>> {
 
     // 二分搜索树的中序遍历
     // 二分搜索树的中序遍历结果是有序的
-    public void inOrder(){
+    public void inOrder() {
         inOrder(root);
     }
 
     // 以node为根的中序遍历，递归算法
-    private void inOrder(Node node){
+    private void inOrder(Node node) {
         if (node == null)
             return;
         inOrder(node.left);
@@ -121,12 +121,12 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 二分搜索树的后序遍历
-    public void postOrder(){
+    public void postOrder() {
         postOrder(root);
     }
 
     // 以node为根的后序遍历，递归算法
-    private void postOrder(Node node){
+    private void postOrder(Node node) {
         if (node == null)
             return;
         postOrder(node.left);
@@ -135,12 +135,12 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 层序遍历
-    public void levelOrder(){
+    public void levelOrder() {
         if (root == null)
             return;
         Queue<Node> queue = new LinkedList<>();
         queue.add(root);
-        while (!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             Node cur = queue.remove();
             System.out.println(cur.e);
 
@@ -152,31 +152,73 @@ public class BST<E extends Comparable<E>> {
     }
 
     // 寻找二分搜索树中的最小元素
-    public E minimum(){
+    public E minimum() {
         if (root == null)
             throw new IllegalArgumentException("BST is empty");
         return minimum(root);
     }
 
     // 返回以node为根的二分搜索树的最小值的节点
-    private E minimum(Node node){
+    private E minimum(Node node) {
         if (node.left == null)
             return node.e;
         return minimum(node.left);
     }
 
     // 寻找二分搜索树中的最大元素
-    public E maximum(){
+    public E maximum() {
         if (root == null)
             throw new IllegalArgumentException("BST is empty");
         return maximum(root);
     }
 
     // 返回以node为根的二分搜索树的最大值的节点
-    private E maximum(Node node){
+    private E maximum(Node node) {
         if (node.right == null)
             return node.e;
         return maximum(node.right);
+    }
+
+    // 删除最小值所在的节点，并返回最小值
+    public E removeMin() {
+        E ret = minimum();
+        root = removeMin(root);
+        return ret;
+    }
+
+    // 删除掉以node为根的二分搜索树中的最小值所在节点
+    // 返回删除节点后的新的二分搜索树中的根
+    private Node removeMin(Node node) {
+        if (node.left == null) {
+            Node rightNode = node.right;
+            node.right = null;
+            size--;
+            return rightNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    // 删除最大值所在的节点，并返回最小值
+    public E removeMax() {
+        E ret = maximum();
+        root = removeMax(root);
+        return ret;
+    }
+
+    // 删除掉以node为根的二分搜索树中的最大值所在节点
+    // 返回删除节点后的新的二分搜索树中的根
+    private Node removeMax(Node node) {
+        if (node.right == null) {
+            Node leftNode = node.left;
+            node.left = null;
+            size--;
+            return leftNode;
+        }
+
+        node.right = removeMax(node.right);
+        return node;
     }
 
     @Override
@@ -208,7 +250,7 @@ public class BST<E extends Comparable<E>> {
 //
 //        System.out.println(bst.contains(5)); false
 
-        int[] nums = {5,3,6,8,4,2};
+        int[] nums = {5, 3, 6, 8, 4, 2};
         for (int num : nums)
             bst.add(num);
 
@@ -222,5 +264,11 @@ public class BST<E extends Comparable<E>> {
 
         System.out.println();
         bst.levelOrder();
+
+        bst.removeMin();
+        System.out.println(bst);
+
+        bst.removeMax();
+        System.out.println(bst);
     }
 }
