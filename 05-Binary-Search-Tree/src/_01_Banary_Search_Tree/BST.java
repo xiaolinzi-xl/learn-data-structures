@@ -155,13 +155,13 @@ public class BST<E extends Comparable<E>> {
     public E minimum() {
         if (root == null)
             throw new IllegalArgumentException("BST is empty");
-        return minimum(root);
+        return minimum(root).e;
     }
 
     // 返回以node为根的二分搜索树的最小值的节点
-    private E minimum(Node node) {
+    private Node minimum(Node node) {
         if (node.left == null)
-            return node.e;
+            return node;
         return minimum(node.left);
     }
 
@@ -221,6 +221,47 @@ public class BST<E extends Comparable<E>> {
         return node;
     }
 
+    // 从二分搜索树中删除元素为e的节点
+    public void remove(E e){
+        root = remove(root,e);
+    }
+
+    // 删除掉以node为根的二分搜索树中值为e的节点
+    // 返回删除节点后新的二分搜索树的根
+    private Node remove(Node node,E e){
+        if (node == null)
+            return null;
+        if (e.compareTo(node.e) < 0){
+            node.left = remove(node.left,e);
+            return node;
+        }else if (e.compareTo(node.e) > 0){
+            node.right = remove(node.right,e);
+            return node;
+        }else {
+            if (node.left == null){
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+            if (node.right == null){
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+
+            // 删除的节点有左右孩子
+            // 找到删除节点的右子树中最小值的节点替代删除节点
+            Node newNode = minimum(node.right);
+            newNode.right = removeMin(node.right);
+            newNode.left = node.left;
+
+            node.left = node.right = null;
+            return newNode;
+        }
+    }
+
     @Override
     public String toString() {
         if (root == null)
@@ -269,6 +310,9 @@ public class BST<E extends Comparable<E>> {
         System.out.println(bst);
 
         bst.removeMax();
+        System.out.println(bst);
+
+        bst.remove(3);
         System.out.println(bst);
     }
 }
