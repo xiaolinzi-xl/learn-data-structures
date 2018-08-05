@@ -97,6 +97,7 @@ public class LinkedList<E> {
         while (cur != null) {
             if (cur.e.equals(e))
                 return true;
+            cur = cur.next;
         }
         return false;
     }
@@ -124,6 +125,24 @@ public class LinkedList<E> {
     // 删除链表中最后一个元素，并返回
     public E removeLast() {
         return remove(size - 1);
+    }
+
+    // 从链表中删除元素e
+    public void removeElement(E e) {
+        Node prev = dummyHead;
+
+        while (prev.next != null) {
+            if (prev.next.e.equals(e))
+                break;
+            prev = prev.next;
+        }
+
+        if (prev.next != null) {
+            Node delNode = prev.next;
+            prev.next = delNode.next;
+            delNode.next = null;
+            size--;
+        }
     }
 
     @Override
