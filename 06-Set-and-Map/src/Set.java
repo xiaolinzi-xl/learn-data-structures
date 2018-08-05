@@ -1,5 +1,3 @@
-package _01_set_bst;
-
 /**
  * Created by xiaolinzi on 2018/8/5.
  */

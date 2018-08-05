@@ -1,7 +1,5 @@
 package _01_set_bst;
 
-import java.util.ArrayList;
-
 /**
  * Created by xiaolinzi on 2018/8/5.
  */

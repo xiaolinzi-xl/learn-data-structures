@@ -1,6 +1,5 @@
 package _01_set_bst;
 
-
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -154,7 +153,7 @@ public class BST<E extends Comparable<E>> {
     // 寻找二分搜索树中的最小元素
     public E minimum() {
         if (root == null)
-            throw new IllegalArgumentException("BST is empty");
+            throw new IllegalArgumentException("_01_set_bst.BST is empty");
         return minimum(root).e;
     }
 
@@ -168,7 +167,7 @@ public class BST<E extends Comparable<E>> {
     // 寻找二分搜索树中的最大元素
     public E maximum() {
         if (root == null)
-            throw new IllegalArgumentException("BST is empty");
+            throw new IllegalArgumentException("_01_set_bst.BST is empty");
         return maximum(root);
     }
 
