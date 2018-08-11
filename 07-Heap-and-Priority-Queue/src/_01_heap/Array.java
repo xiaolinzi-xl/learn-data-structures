@@ -110,7 +110,8 @@ public class Array<E> {
         size--;
         data[size] = null; // gc 自动回收内存
 
-        if (size == data.length / 2)
+        // 修复动荡bug，当数组的现有元素为容量1/4时，缩小数组容量。数组的新容量不能为0
+        if (size == data.length / 4 && data.length / 2 != 0)
             resize(data.length / 2);
         return res;
     }
